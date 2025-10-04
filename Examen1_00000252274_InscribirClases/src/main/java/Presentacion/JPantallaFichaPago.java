@@ -24,6 +24,10 @@ public class JPantallaFichaPago extends javax.swing.JFrame implements Observer {
         control.finalizarInscripcion();
     }
 
+    /**
+     * Metodo que llena la tabla con los cursos inscritos
+     * @param cursos Recibe una lista de cursosVista
+     */
     private void llenarTablaCursos(List<CursoVista> cursos) {
         DefaultTableModel modeloIns = (DefaultTableModel) tblCursos.getModel();
         modeloIns.setRowCount(0);
@@ -223,6 +227,9 @@ public class JPantallaFichaPago extends javax.swing.JFrame implements Observer {
     private javax.swing.JTable tblCursos;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Metodo que actualiza los datos de la ficha de pago con los obtenidos de la inscripcion anteriormente generada
+     */
     @Override
     public void update() {
         InscripcionVista inscripcion = modeloVista.getInscripcion();

@@ -6,6 +6,10 @@ import ModeloVista.ControlVista;
 import ModeloVista.ModeloVista;
 import javax.swing.JOptionPane;
 
+/**
+ * Clase (Extra) que se encarga de obtener el nombre del alumno antes de iniciar la inscripcion
+ * @author Jorge Cuevas Gastelum - 00000252274
+ */
 public class JPantallaMenu extends javax.swing.JFrame {
 
     private String nombre;
@@ -89,7 +93,7 @@ public class JPantallaMenu extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("MENU");
+        jLabel1.setText("MENU INSCRIPCIÓNES");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -152,6 +156,10 @@ public class JPantallaMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Si no se escribe un nombre saltara un JOptionPane indicando que necesita poner nuno
+     * @param evt 
+     */
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         this.nombre = txtNombre.getText();
         if(nombre != null && !nombre.trim().isEmpty()){
