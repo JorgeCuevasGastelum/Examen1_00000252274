@@ -20,4 +20,8 @@ public class ControlInscripcion {
     public void desinscribirCurso(int indice) {
         modeloVista.moverCurso(true, indice); // true = de inscritos a disponibles
     }
+    
+    public void finalizarInscripcion(){ 
+        modeloVista.finalizarInscripcion();
+    }
 }

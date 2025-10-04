@@ -3,6 +3,7 @@ package ModeloNegocios;
 import ModeloNegocios.Entidades.Curso;
 import ModeloVista.ControlVista;
 import ModeloNegocios.Entidades.Inscripcion;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +22,27 @@ public class ModeloNegocios {
     
     public void iniciarInscripcion(String nombre){
         this.inscripcionAlumno = new Inscripcion(nombre);
+        inscripcionAlumno.setFecha(LocalDate.now());
         ObtenerCursosDisponibles();
     }
+    
+    public void finalizarInscripcion() {
+    if (inscripcionAlumno == null) {
+        System.out.println("Error: No hay inscripción activa.");
+        return;
+    }
+        
+    // Asignamos los datos actuales
+    inscripcionAlumno.setCursos(new ArrayList<>(cursosInscritos));
+    inscripcionAlumno.setCosto(calcularCostoTotal(cursosInscritos));
+    inscripcionAlumno.setFecha(LocalDate.now());
+    // Convertimos a vista
+//    InscripcionVista inscripcionVista = convertirAInscripcionVista(inscripcionAlumno);
+
+    // Notificamos al modeloVista (a través del controlVista)
+    controlVista.actualizarInscripcion(inscripcionAlumno);
+}
+
     
     
     public void ObtenerCursosDisponibles(){

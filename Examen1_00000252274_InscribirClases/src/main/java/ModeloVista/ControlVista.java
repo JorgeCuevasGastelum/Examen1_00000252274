@@ -1,9 +1,12 @@
 package ModeloVista;
 
 import ModeloNegocios.Entidades.Curso;
+import ModeloNegocios.Entidades.Inscripcion;
 import ModeloVista.Entidades.CursoVista;
+import ModeloVista.Entidades.InscripcionVista;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ControlVista {
     private ModeloVista modeloVista;
@@ -35,5 +38,23 @@ public class ControlVista {
     public void actualizarCostoTotal(Double costoTotal){
         modeloVista.actualizarCostoTotal(costoTotal);
     }
+    
+    public void actualizarInscripcion(Inscripcion inscripcionAlumno){
+        modeloVista.actualizarInscripcion(convertirAInscripcionVista(inscripcionAlumno));
+    }
+    
+    private InscripcionVista convertirAInscripcionVista(Inscripcion inscripcion) {
+    List<CursoVista> cursosVista = inscripcion.getCursos().stream()
+            .map(c -> new CursoVista(c.getNombre(), c.getAula(), c.getCosto()))
+            .collect(Collectors.toList());
+
+    return new InscripcionVista(
+            inscripcion.getNombreAlumno(),
+            cursosVista,
+            inscripcion.getCosto(),
+            inscripcion.getFecha()
+    );
+
+}
 
 }

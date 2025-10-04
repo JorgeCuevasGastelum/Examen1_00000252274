@@ -2,6 +2,7 @@ package ModeloVista;
 
 import ModeloNegocios.ModeloNegocios;
 import ModeloVista.Entidades.CursoVista;
+import ModeloVista.Entidades.InscripcionVista;
 import Observer.Observer;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ public class ModeloVista {
     private Double costoTotal;
     private List<Observer> observers = new ArrayList<>();
     private ModeloNegocios modeloNegocio;
+    private InscripcionVista inscripcion;
 
     public ModeloVista() {
         
@@ -26,6 +28,15 @@ public class ModeloVista {
         this.cursosInscritos = new ArrayList<>();
         this.costoTotal = 0.0;
         modeloNegocio.iniciarInscripcion(nombre);
+    }
+    
+    public void actualizarInscripcion(InscripcionVista inscripcion){
+        this.inscripcion = inscripcion;
+        notificar();
+    }
+    
+    public void finalizarInscripcion(){
+        modeloNegocio.finalizarInscripcion();
     }
     
      public void moverCurso(boolean haciaDisponibles, int indice) {
@@ -62,6 +73,16 @@ public class ModeloVista {
     public void setCostoTotal(Double costoTotal) {
         this.costoTotal = costoTotal;
     }
+
+    public InscripcionVista getInscripcion() {
+        return inscripcion;
+    }
+
+    public void setInscripcion(InscripcionVista inscripcion) {
+        this.inscripcion = inscripcion;
+    }
+    
+    
     
 
     //Metodo usado para agregar observadores en este caso la PRESENTACION se agrega como observador

@@ -19,7 +19,7 @@ public class JPantallaInscripcion extends javax.swing.JFrame implements Observer
         this.controlador = control;
         this.modeloVista.addObserver(this);
         this.modeloVista.iniciarInscripcion(nombre);
-        lblNombre.setText(nombre);
+        lblNombre.setText("Bievenido " + nombre);
         tblCursosDisponibles.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 int selectedRow = tblCursosDisponibles.getSelectedRow();
@@ -74,7 +74,6 @@ public class JPantallaInscripcion extends javax.swing.JFrame implements Observer
         pnlBase = new javax.swing.JPanel();
         pnlTitulo = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
         pnlCursosDisponibles = new javax.swing.JPanel();
         scrollPaneCursosDisponibles = new javax.swing.JScrollPane();
@@ -104,10 +103,8 @@ public class JPantallaInscripcion extends javax.swing.JFrame implements Observer
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("INSCRIPCIÓN A CLASES");
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
-        jLabel1.setText("Bienvenido");
-
         lblNombre.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
+        lblNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNombre.setText("nombre");
 
         javax.swing.GroupLayout pnlTituloLayout = new javax.swing.GroupLayout(pnlTitulo);
@@ -115,12 +112,7 @@ public class JPantallaInscripcion extends javax.swing.JFrame implements Observer
         pnlTituloLayout.setHorizontalGroup(
             pnlTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 1102, Short.MAX_VALUE)
-            .addGroup(pnlTituloLayout.createSequentialGroup()
-                .addGap(485, 485, 485)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNombre)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(lblNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlTituloLayout.setVerticalGroup(
             pnlTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,9 +120,7 @@ public class JPantallaInscripcion extends javax.swing.JFrame implements Observer
                 .addGap(21, 21, 21)
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(lblNombre))
+                .addComponent(lblNombre)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
@@ -238,6 +228,7 @@ public class JPantallaInscripcion extends javax.swing.JFrame implements Observer
                 .addContainerGap())
         );
 
+        txtCostoTotal.setEditable(false);
         txtCostoTotal.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         txtCostoTotal.setText("$0");
 
@@ -364,14 +355,15 @@ public class JPantallaInscripcion extends javax.swing.JFrame implements Observer
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        JPantallaFichaPago fichaPago = new JPantallaFichaPago(modeloVista, controlador);
+        fichaPago.setVisible(true);
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFinalizar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblNombre;
