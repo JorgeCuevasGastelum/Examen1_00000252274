@@ -10,6 +10,7 @@ public class ModeloVista {
 
     private List<CursoVista> cursosDisponibles;
     private List<CursoVista> cursosInscritos;
+    private Double costoTotal;
     private List<Observer> observers = new ArrayList<>();
     private ModeloNegocios modeloNegocio;
 
@@ -23,6 +24,7 @@ public class ModeloVista {
     
     public void iniciarInscripcion(String nombre){
         this.cursosInscritos = new ArrayList<>();
+        this.costoTotal = 0.0;
         modeloNegocio.iniciarInscripcion(nombre);
     }
     
@@ -47,7 +49,20 @@ public class ModeloVista {
         this.cursosInscritos = cursosInscritos;
         notificar();
     }
+    
+    public void actualizarCostoTotal(double costoTotal) {
+        this.costoTotal = costoTotal;
+        notificar();
+    }
 
+    public Double getCostoTotal() {
+        return costoTotal;
+    }
+
+    public void setCostoTotal(Double costoTotal) {
+        this.costoTotal = costoTotal;
+    }
+    
 
     //Metodo usado para agregar observadores en este caso la PRESENTACION se agrega como observador
     public void addObserver(Observer o) {

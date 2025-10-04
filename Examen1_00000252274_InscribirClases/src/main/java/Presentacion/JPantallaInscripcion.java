@@ -57,6 +57,10 @@ public class JPantallaInscripcion extends javax.swing.JFrame implements Observer
             modeloIns.addRow(new Object[]{c.getNombre(), c.getAula(), c.getCosto()});
         }
     }
+    
+    private void actualizarCostoTotal(){
+        txtCostoTotal.setText("$" + modeloVista.getCostoTotal());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -235,7 +239,7 @@ public class JPantallaInscripcion extends javax.swing.JFrame implements Observer
         );
 
         txtCostoTotal.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        txtCostoTotal.setText("$1999.00");
+        txtCostoTotal.setText("$0");
 
         lblTotal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblTotal.setText("TOTAL:");
@@ -391,5 +395,6 @@ public class JPantallaInscripcion extends javax.swing.JFrame implements Observer
     @Override
     public void update() {
         llenarTablas();
+        actualizarCostoTotal();
     }
 }

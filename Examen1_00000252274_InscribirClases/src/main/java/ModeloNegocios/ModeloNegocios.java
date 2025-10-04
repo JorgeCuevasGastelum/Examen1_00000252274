@@ -43,6 +43,13 @@ public class ModeloNegocios {
 
         // Notificar al modeloVista para que se actualice
         controlVista.actualizarListadoCursos(cursosDisponibles, cursosInscritos);
+        controlVista.actualizarCostoTotal(calcularCostoTotal(cursosInscritos));
+    }
+    
+    private double calcularCostoTotal(List<Curso> cursosInscritos) {
+        return cursosInscritos.stream()
+                .mapToDouble(Curso::getCosto)
+                .sum();
     }
     
     public List<Curso> crearListadoCursosDisponiblesMock(){

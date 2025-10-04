@@ -31,5 +31,9 @@ public class ControlVista {
 
     return listaVista;
 }
+    
+    public void actualizarCostoTotal(Double costoTotal){
+        modeloVista.actualizarCostoTotal(costoTotal);
+    }
 
 }
