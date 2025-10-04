@@ -14,6 +14,7 @@ public class JPantallaInscripcion extends javax.swing.JFrame implements Observer
     public JPantallaInscripcion(ModeloVista modeloVista, ControlInscripcion control, String nombre) {
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("Inscripciones");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.modeloVista = modeloVista;
         this.controlador = control;
@@ -90,7 +91,6 @@ public class JPantallaInscripcion extends javax.swing.JFrame implements Observer
         lblTotal = new javax.swing.JLabel();
         pnlBotones = new javax.swing.JPanel();
         btnFinalizar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -192,6 +192,9 @@ public class JPantallaInscripcion extends javax.swing.JFrame implements Observer
             .addComponent(scrollPaneCursosInscritos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
+        pnlTituloCursosDisponibles.setBackground(new java.awt.Color(255, 250, 242));
+
+        jLabel2.setBackground(new java.awt.Color(204, 204, 204));
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("CURSOS DISPONIBLES");
@@ -210,6 +213,9 @@ public class JPantallaInscripcion extends javax.swing.JFrame implements Observer
                 .addContainerGap())
         );
 
+        pnlTituloCursosInscritos.setBackground(new java.awt.Color(255, 250, 242));
+
+        jLabel3.setBackground(new java.awt.Color(255, 250, 242));
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("CURSOS INSCRITOS");
@@ -227,6 +233,8 @@ public class JPantallaInscripcion extends javax.swing.JFrame implements Observer
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        pnlCostoTotal.setBackground(new java.awt.Color(204, 204, 204));
 
         txtCostoTotal.setEditable(false);
         txtCostoTotal.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
@@ -256,6 +264,7 @@ public class JPantallaInscripcion extends javax.swing.JFrame implements Observer
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        pnlBotones.setBackground(new java.awt.Color(255, 250, 242));
         pnlBotones.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         btnFinalizar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -267,33 +276,21 @@ public class JPantallaInscripcion extends javax.swing.JFrame implements Observer
             }
         });
 
-        btnCancelar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnCancelar.setText("CANCELAR");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout pnlBotonesLayout = new javax.swing.GroupLayout(pnlBotones);
         pnlBotones.setLayout(pnlBotonesLayout);
         pnlBotonesLayout.setHorizontalGroup(
             pnlBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBotonesLayout.createSequentialGroup()
                 .addContainerGap(34, Short.MAX_VALUE)
-                .addGroup(pnlBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnFinalizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
+                .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
         pnlBotonesLayout.setVerticalGroup(
             pnlBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBotonesLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(28, 28, 28)
                 .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlBaseLayout = new javax.swing.GroupLayout(pnlBase);
@@ -350,10 +347,6 @@ public class JPantallaInscripcion extends javax.swing.JFrame implements Observer
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
         this.dispose();
         JPantallaFichaPago fichaPago = new JPantallaFichaPago(modeloVista, controlador);
@@ -362,7 +355,6 @@ public class JPantallaInscripcion extends javax.swing.JFrame implements Observer
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFinalizar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -17,6 +17,7 @@ public class JPantallaFichaPago extends javax.swing.JFrame implements Observer {
     public JPantallaFichaPago(ModeloVista modeloVista, ControlInscripcion control) {
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("Ficha de Pago");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.modeloVista = modeloVista;
         this.control = control;
@@ -86,6 +87,7 @@ public class JPantallaFichaPago extends javax.swing.JFrame implements Observer {
         JPanelBoton.setBackground(new java.awt.Color(255, 250, 242));
         JPanelBoton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
+        btnAceptar.setBackground(new java.awt.Color(204, 204, 204));
         btnAceptar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnAceptar.setText("ACEPTAR");
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {

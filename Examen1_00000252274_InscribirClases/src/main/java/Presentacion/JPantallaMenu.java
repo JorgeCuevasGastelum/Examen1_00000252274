@@ -16,6 +16,7 @@ public class JPantallaMenu extends javax.swing.JFrame {
     
     public JPantallaMenu() {
         initComponents();
+        setTitle("Menu Inscripciones");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
@@ -44,6 +45,8 @@ public class JPantallaMenu extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 250, 242));
 
         jPanel2.setBackground(new java.awt.Color(255, 250, 240));
+
+        jPanel4.setBackground(new java.awt.Color(255, 250, 242));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
