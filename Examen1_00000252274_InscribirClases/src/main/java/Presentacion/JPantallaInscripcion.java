@@ -1,11 +1,61 @@
 package Presentacion;
 
-public class JPantallaInscripcion extends javax.swing.JFrame {
+import Controlador.ControlInscripcion;
+import ModeloVista.Entidades.CursoVista;
+import ModeloVista.ModeloVista;
+import Observer.Observer;
+import javax.swing.table.DefaultTableModel;
 
-    public JPantallaInscripcion() {
+public class JPantallaInscripcion extends javax.swing.JFrame implements Observer {
+
+    private ModeloVista modeloVista;
+    private ControlInscripcion controlador;
+
+    public JPantallaInscripcion(ModeloVista modeloVista, ControlInscripcion control, String nombre) {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.modeloVista = modeloVista;
+        this.controlador = control;
+        this.modeloVista.addObserver(this);
+        this.modeloVista.iniciarInscripcion(nombre);
+        lblNombre.setText(nombre);
+        tblCursosDisponibles.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int selectedRow = tblCursosDisponibles.getSelectedRow();
+                if (selectedRow != -1) {
+                    // Avisamos al controlador
+                    controlador.inscribirCurso(selectedRow);
+                }
+            }
+        });
+
+        tblCursosInscritos.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int selectedRow = tblCursosInscritos.getSelectedRow();
+                if (selectedRow != -1) {
+                    // Avisamos al controlador
+                    controlador.desinscribirCurso(selectedRow);
+                }
+            }
+        });
+
+    }
+
+    
+    private void llenarTablas() {
+        DefaultTableModel modeloDisp = (DefaultTableModel) tblCursosDisponibles.getModel();
+        DefaultTableModel modeloIns = (DefaultTableModel) tblCursosInscritos.getModel();
+        modeloDisp.setRowCount(0);
+        modeloIns.setRowCount(0);
+
+        for (CursoVista c : modeloVista.getCursosDisponibles()) {
+            modeloDisp.addRow(new Object[]{c.getNombre(), c.getAula(), c.getCosto()});
+        }
+
+        for (CursoVista c : modeloVista.getCursosInscritos()) {
+            modeloIns.addRow(new Object[]{c.getNombre(), c.getAula(), c.getCosto()});
+        }
     }
 
     /**
@@ -20,8 +70,14 @@ public class JPantallaInscripcion extends javax.swing.JFrame {
         pnlBase = new javax.swing.JPanel();
         pnlTitulo = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
         pnlCursosDisponibles = new javax.swing.JPanel();
+        scrollPaneCursosDisponibles = new javax.swing.JScrollPane();
+        tblCursosDisponibles = new javax.swing.JTable();
         pnlCursosInscritos = new javax.swing.JPanel();
+        scrollPaneCursosInscritos = new javax.swing.JScrollPane();
+        tblCursosInscritos = new javax.swing.JTable();
         pnlTituloCursosDisponibles = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         pnlTituloCursosInscritos = new javax.swing.JPanel();
@@ -44,44 +100,102 @@ public class JPantallaInscripcion extends javax.swing.JFrame {
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("INSCRIPCIÓN A CLASES");
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
+        jLabel1.setText("Bienvenido");
+
+        lblNombre.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
+        lblNombre.setText("nombre");
+
         javax.swing.GroupLayout pnlTituloLayout = new javax.swing.GroupLayout(pnlTitulo);
         pnlTitulo.setLayout(pnlTituloLayout);
         pnlTituloLayout.setHorizontalGroup(
             pnlTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 1102, Short.MAX_VALUE)
+            .addGroup(pnlTituloLayout.createSequentialGroup()
+                .addGap(485, 485, 485)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblNombre)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlTituloLayout.setVerticalGroup(
             pnlTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTituloLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblNombre))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pnlCursosDisponibles.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+
+        tblCursosDisponibles.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Curso", "Aula", "Costo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scrollPaneCursosDisponibles.setViewportView(tblCursosDisponibles);
 
         javax.swing.GroupLayout pnlCursosDisponiblesLayout = new javax.swing.GroupLayout(pnlCursosDisponibles);
         pnlCursosDisponibles.setLayout(pnlCursosDisponiblesLayout);
         pnlCursosDisponiblesLayout.setHorizontalGroup(
             pnlCursosDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(scrollPaneCursosDisponibles)
         );
         pnlCursosDisponiblesLayout.setVerticalGroup(
             pnlCursosDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 306, Short.MAX_VALUE)
+            .addComponent(scrollPaneCursosDisponibles, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
         );
 
         pnlCursosInscritos.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+
+        tblCursosInscritos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Curso", "Aula", "Costo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scrollPaneCursosInscritos.setViewportView(tblCursosInscritos);
 
         javax.swing.GroupLayout pnlCursosInscritosLayout = new javax.swing.GroupLayout(pnlCursosInscritos);
         pnlCursosInscritos.setLayout(pnlCursosInscritosLayout);
         pnlCursosInscritosLayout.setHorizontalGroup(
             pnlCursosInscritosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(scrollPaneCursosInscritos)
         );
         pnlCursosInscritosLayout.setVerticalGroup(
             pnlCursosInscritosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(scrollPaneCursosInscritos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -253,8 +367,10 @@ public class JPantallaInscripcion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFinalizar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JPanel pnlBase;
@@ -265,6 +381,15 @@ public class JPantallaInscripcion extends javax.swing.JFrame {
     private javax.swing.JPanel pnlTitulo;
     private javax.swing.JPanel pnlTituloCursosDisponibles;
     private javax.swing.JPanel pnlTituloCursosInscritos;
+    private javax.swing.JScrollPane scrollPaneCursosDisponibles;
+    private javax.swing.JScrollPane scrollPaneCursosInscritos;
+    private javax.swing.JTable tblCursosDisponibles;
+    private javax.swing.JTable tblCursosInscritos;
     private javax.swing.JTextField txtCostoTotal;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update() {
+        llenarTablas();
+    }
 }

@@ -1,0 +1,64 @@
+package ModeloVista;
+
+import ModeloNegocios.ModeloNegocios;
+import ModeloVista.Entidades.CursoVista;
+import Observer.Observer;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ModeloVista {
+
+    private List<CursoVista> cursosDisponibles;
+    private List<CursoVista> cursosInscritos;
+    private List<Observer> observers = new ArrayList<>();
+    private ModeloNegocios modeloNegocio;
+
+    public ModeloVista() {
+        
+    }
+    
+    public void setModeloNegocio(ModeloNegocios modeloNegocio){
+        this.modeloNegocio = modeloNegocio;
+    }
+    
+    public void iniciarInscripcion(String nombre){
+        this.cursosInscritos = new ArrayList<>();
+        modeloNegocio.iniciarInscripcion(nombre);
+    }
+    
+     public void moverCurso(boolean haciaDisponibles, int indice) {
+        modeloNegocio.moverCurso(haciaDisponibles, indice);
+    }
+
+    public List<CursoVista> getCursosDisponibles() {
+        return cursosDisponibles;
+    }
+
+    public List<CursoVista> getCursosInscritos() {
+        return cursosInscritos;
+    }
+    
+    public void actualizarCursosDisponibles(List<CursoVista> cursosDisponibles){
+        this.cursosDisponibles = cursosDisponibles;
+        notificar();
+    }
+    
+    public void actualizarCursosInscritos(List<CursoVista> cursosInscritos){
+        this.cursosInscritos = cursosInscritos;
+        notificar();
+    }
+
+
+    //Metodo usado para agregar observadores en este caso la PRESENTACION se agrega como observador
+    public void addObserver(Observer o) {
+        observers.add(o);
+    }
+
+    //Metodo que notifica a los observadores (en este caso solamente la PRESENTACION). despues como la presentacion implementa metodos de observer, se ejecuta update() el cual repinta la pantalla despues de ser notificada.
+    private void notificar() {
+        for (Observer o : observers) {
+            o.update();
+        }
+    }
+
+}
